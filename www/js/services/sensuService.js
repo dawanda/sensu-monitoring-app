@@ -1,4 +1,7 @@
-angular.module('sensumobileapp.services').factory('SensuService', ['$http','BASE_URL_SENSU_API',function ($http, BASE_URL_SENSU_API) {
+angular.module('sensumobileapp.services').factory('SensuService', ['$http','BASE_URL_SENSU_API','BASIC_AUTH_USER_PASSWORD',function ($http, BASE_URL_SENSU_API, BASIC_AUTH_USER_PASSWORD) {
+  if(BASIC_AUTH_USER_PASSWORD != "") {
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + btoa(BASIC_AUTH_USER_PASSWORD);
+  }
 
   var getAllClients = function() {
       return $http({

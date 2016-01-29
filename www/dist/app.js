@@ -14,6 +14,7 @@ angular.module('sensumobileapp', [
     'sensumobileapp.services'
   ])
   .constant('BASE_URL_SENSU_API', "YOUR_SENSU_URL_BASE_API")
+  .constant('BASIC_AUTH_USER_PASSWORD', "YOUR_BASIC_AUTH_USER_PASSWORD")
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -275,7 +276,10 @@ function ($scope, SensuService, $q, $ionicLoading) {
 
 }]);
 
-angular.module('sensumobileapp.services').factory('SensuService', ['$http','BASE_URL_SENSU_API',function ($http, BASE_URL_SENSU_API) {
+angular.module('sensumobileapp.services').factory('SensuService', ['$http','BASE_URL_SENSU_API','BASIC_AUTH_USER_PASSWORD',function ($http, BASE_URL_SENSU_API, BASIC_AUTH_USER_PASSWORD) {
+  if(BASIC_AUTH_USER_PASSWORD != "") {
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + btoa(BASIC_AUTH_USER_PASSWORD);
+  }
 
   var getAllClients = function() {
       return $http({

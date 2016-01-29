@@ -14,6 +14,7 @@ angular.module('sensumobileapp', [
     'sensumobileapp.services'
   ])
   .constant('BASE_URL_SENSU_API', "YOUR_SENSU_URL_BASE_API")
+  .constant('BASIC_AUTH_USER_PASSWORD', "YOUR_BASIC_AUTH_USER_PASSWORD")
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
