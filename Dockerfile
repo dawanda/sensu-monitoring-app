@@ -2,6 +2,7 @@ FROM ubuntu:14.04
 
 ENV DEBIAN_FRONTEND="noninteractive"
 ARG SENSU_URL
+ARG BASIC_AUTH_USER_PASSWORD=""
 
 RUN apt-get -qqy update && \
     apt-get -qqy install apt-transport-https
@@ -14,7 +15,7 @@ RUN echo "deb https://deb.nodesource.com/node_5.x trusty main" > /etc/apt/source
 
 RUN apt-get -qqy update && \
     apt-get -qqy upgrade
-RUN apt-get -qqy install nodejs git openjdk-7-jdk
+RUN apt-get -qqy install nodejs git
 
 RUN npm install -g ionic bower gulp cordova
 
@@ -29,8 +30,12 @@ RUN npm install && \
 # Add full content here to cache npm install
 ADD . /src/
 
-RUN sed -i -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," www/js/app.js && \
-    sed -i -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," www/dist/app.js
+RUN sed -i \
+      -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," \
+      -e "s,YOUR_BASIC_AUTH_USER_PASSWORD,$BASIC_AUTH_USER_PASSWORD," www/js/app.js && \
+    sed -i \
+      -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," \
+      -e "s,YOUR_BASIC_AUTH_USER_PASSWORD,$BASIC_AUTH_USER_PASSWORD," www/dist/app.js
 RUN gulp
 
 EXPOSE 8100 35729
