@@ -32,10 +32,7 @@ ADD . /src/
 
 RUN sed -i \
       -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," \
-      -e "s,YOUR_BASIC_AUTH_USER_PASSWORD,$BASIC_AUTH_USER_PASSWORD," www/js/app.js && \
-    sed -i \
-      -e "s,YOUR_SENSU_URL_BASE_API,$SENSU_URL," \
-      -e "s,YOUR_BASIC_AUTH_USER_PASSWORD,$BASIC_AUTH_USER_PASSWORD," www/dist/app.js
+      -e "s,YOUR_BASIC_AUTH_USER_PASSWORD,$BASIC_AUTH_USER_PASSWORD," www/js/app.js
 RUN gulp
 
 EXPOSE 8100 35729
