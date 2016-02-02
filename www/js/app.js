@@ -31,11 +31,13 @@ angular.module('sensumobileapp', [
         console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
       };
       // Update with your OneSignal AppId and googleProjectNumber before running.
-      window.plugins.OneSignal.init("ONE_SIGNAL_APP_ID", {
-          googleProjectNumber: "GOOGLE_PROJECT_NUMBER"
-        },
-        notificationOpenedCallback);
-      window.plugins.OneSignal.enableInAppAlertNotification(true);
+      if (window.plugins && window.plugins.OneSignal) {
+        window.plugins.OneSignal.init("ONE_SIGNAL_APP_ID", {
+            googleProjectNumber: "GOOGLE_PROJECT_NUMBER"
+          },
+          notificationOpenedCallback);
+        window.plugins.OneSignal.enableInAppAlertNotification(true);
+      }
     });
   })
 
